@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+	http_basic_authenticate_with name: "akhil", password: "1234", except: [:index, :show]
 	
 	def index
 		@blogs = Blog.all
@@ -27,6 +28,12 @@ class BlogsController < ApplicationController
 
 	def new 
 		@blog = Blog.new
+	end
+
+	def destroy
+		@blog = Blog.find(params[:id])
+		@blog.destroy
+		redirect_to blogs_path
 	end
 	
 	private
